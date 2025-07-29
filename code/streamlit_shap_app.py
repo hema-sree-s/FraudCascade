@@ -12,12 +12,19 @@ FEATURE_COLS = [f"V{i}" for i in range(1,29)] + ["Amount"]
 # 2. Load
 @st.cache_data
 def load_data():
-    return pd.read_csv("../data/creditcard.csv")
-
+    try:
+        return pd.read_csv("../data/creditcard.csv")
+    except FileNotFoundError:
+        return pd.read_csv(st.secrets["DATA_URL"])
 @st.cache_resource
 def load_model():
-    return joblib.load("../models/lgbm_model.pkl")
-
+    try:
+        return joblib.load("../models/lgbm_model.pkl")
+    except FileNotFoundError:
+        import urllib.request, tempfile
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pkl")
+        urllib.request.urlretrieve(st.secrets["MODEL_URL"], tmp.name)
+        return joblib.load(tmp.name)
 data = load_data()
 model = load_model()
 features = data[FEATURE_COLS]
