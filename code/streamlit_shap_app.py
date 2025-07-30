@@ -35,7 +35,7 @@ idx = st.sidebar.number_input("Transaction index", 0, len(data)-1, 0)
 
 # 5. GLOBAL BAR CHART (pre-rendered static image)
 st.header("Global SHAP Feature Importance")
-st.image("../figures/shap_bar_lightgbm.png", use_container_width=True)
+st.image(str(BAR_PNG), use_container_width=True)
 
 # 6. TRANSACTION-LEVEL FORCE PLOT
 st.header(f"SHAP Force Plot: Transaction {idx}")
