@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]   # repo root
 DATA_CSV   = ROOT / "data" / "creditcard.csv"
 MODEL_FILE = ROOT / "models" / "lgbm_model.pkl"
+BAR_PNG = ROOT / "figures" / "shap_bar_lightgbm.png"
 
 # 1. Config
 st.set_page_config(layout="centered")
