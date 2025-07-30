@@ -4,6 +4,12 @@ import shap
 import joblib
 from streamlit_shap import st_shap
 import numpy as np
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]   # repo root
+DATA_CSV   = ROOT / "data" / "creditcard.csv"
+MODEL_FILE = ROOT / "models" / "lgbm_model.pkl"
+
 # 1. Config
 st.set_page_config(layout="centered")
 st.title("Stage 1 SHAP Dashboard — Fraud Detection")
@@ -12,10 +18,10 @@ FEATURE_COLS = [f"V{i}" for i in range(1,29)] + ["Amount"]
 # 2. Load
 @st.cache_data
 def load_data():
-    return pd.read_csv("../data/creditcard.csv")
+    return pd.read_csv(DATA_CSV)
 @st.cache_resource
 def load_model():
-    return joblib.load("../models/lgbm_model.pkl")
+    return joblib.load(MODEL_FILE)
 data = load_data()
 model = load_model()
 features = data[FEATURE_COLS]
